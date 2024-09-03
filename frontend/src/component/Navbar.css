@@ -1,0 +1,51 @@
+/* Navbar.css */
+
+.navbar {
+  padding: 10px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; 
+  font-weight:bolder;
+  position:fixed;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links {
+  margin-left: 20px;
+}
+
+.nav-link {
+  margin-right: 25px;
+  margin-left: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  width: 126px;
+  height: 41px;
+  margin-top: 10px;
+  border-radius: 13px;
+}
+
+.get1 {
+  background-color: #FF4F00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.get1:hover {
+  background-color: #0056b3;
+}

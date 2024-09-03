@@ -1,0 +1,12 @@
+DeitMe 
+user:
+email:meet@gmail.com
+password:123456
+role:user
+
+
+To install:
+i)npm install cors
+ii)npm i react-toastify
+iii) backend:npm  i bcrypt cloudinary cookie-parser dotenv express mongoose express-fileupload jsonwebtoken validator
+iv) frontend: npm i axios react-icons react-multi-carousel react-router-dom react-toastify 
