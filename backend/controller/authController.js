@@ -6,7 +6,7 @@ import { User } from '../models/userSchema.js';
 export const register = async (req, res) => {
   try {
     // Extract data from request body
-    const { username, email, password,weight,height,gender,age,fp,hg,alg,bmi} = req.body;
+    const { username, email, password,weight,height,gender,age,fp,hg,activitylevel,bmi} = req.body;
 
     // Check if user already exists
     let existingUser = await User.findOne({ email });

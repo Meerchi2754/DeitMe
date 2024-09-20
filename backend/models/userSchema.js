@@ -3,6 +3,7 @@ import validator from "validator";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+
 const userSchema= new mongoose.Schema({
     username:{
         type: String, 
@@ -17,7 +18,7 @@ const userSchema= new mongoose.Schema({
     gender:{
         type: String,
         required:true,
-        enum:['Male','Female','Not to say'],
+        enum:['Male','Female'],
     },
     weight:{
         type:String,
@@ -41,19 +42,21 @@ const userSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
-    alg:{
-        type:String,
-        required:true,
-    },
     hg:{
         type:String,
         required:true,
+        enum:['muscle gain', 'muscle loss', 'weight gain', 'weight loss', 'maintaining health',"Weight Loss", "Weight Gain", "Muscle Gain", "Muscle Loss","Maintaing Health"],
     },
     password:{
         type:String,
         required:true,
         select:false,
         minlength:[5,"Password must contain 5 character"],
+    },
+    activitylevel:{
+        type: String, 
+        enum: ['sedentary', 'lightly active', 'moderately active', 'very active', 'extra active'], 
+        required: true 
     },
     role:{
         type:String,

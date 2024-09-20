@@ -3,10 +3,10 @@ import {catchAsyncError} from "../middlewares/catchAsyncError.js"
 import ErrorHandler from "../middlewares/errorMiddlewares.js"
 import { User } from "../models/userSchema.js";
 import {generateToken} from "../utils/jwtTokens.js"
-
-
+import {calculateTDEE} from "../utils/todeeCalculator.js"
 
 export const UserReg=catchAsyncError(async(req,res,next)=>{
+    try {
     const {
             username,
             age,
@@ -14,7 +14,7 @@ export const UserReg=catchAsyncError(async(req,res,next)=>{
             weight,
             height,
             dp,
-            alg,
+            activitylevel,
             hg,
             role,
             email,
@@ -28,7 +28,7 @@ export const UserReg=catchAsyncError(async(req,res,next)=>{
             !weight,
             !height,
             !dp,
-            !alg,
+            !activitylevel,
             !hg,
             !role,
             !email,
@@ -48,16 +48,30 @@ export const UserReg=catchAsyncError(async(req,res,next)=>{
             weight,
             height,
             dp,
-            alg,
+            activitylevel,
             hg,
             role,
             email,
             password,
             bmi
         }); 
-        generateToken(user,"User Registered!!",200,res);        
+        generateToken(user,"User Registered!!",200,res);  
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ message: 'Server error' });
+      }      
 });
 
+export const getUserTDEE = (req, res) => {
+    const { weight, height, age, gender, activityLevel } = req.body;
+  
+    const TDEE = calculateTDEE(weight, height, age, gender, activityLevel);
+    
+    return res.json({
+      success: true,
+      TDEE,
+    });
+  };
 
 export const login=catchAsyncError(async(req,res,next)=>{
     const {

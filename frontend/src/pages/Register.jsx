@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Context } from '../main';
 import logo from "../images/d1.png";
 import app from '../App';
+
 const Register = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
   const [username, setUsername] = useState("");
@@ -13,15 +14,16 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-  const [foodPreference, setFoodPreference] = useState("");
-  const [allergies, setAllergies] = useState("");
-  const [healthGoal, setHealthGoal] = useState("");
+  const [dp, setDp] = useState("");
+  const [hg, setHg] = useState("");
+  const [activitylevel,setActivitylevel]=useState('sedentary');
   const [gender, setGender] = useState("");
   const [bmi, setBmi] = useState(0); // Initialize BMI state to 0 for calculation
+  const [age, setAge] = useState(""); // Add age state
 
   const healthGoalOptions = ["Weight Loss", "Weight Gain", "Muscle Gain", "Muscle Loss"];
   const foodOptions = ["Vegetarian", "Non-vegetarian", "Vegan", "Gluten-free", "Other"];
-  const genderOptions = ["Male", "Female", "Not to say"];
+  const genderOptions = ["Male", "Female"];
 
   const navigateTo = useNavigate();
 
@@ -33,7 +35,7 @@ const Register = () => {
 
   const calculateBmi = (weight, height) => {
     if (weight && height) {
-      const heightInMeters = height / 100; 
+      const heightInMeters = height / 100;  
       const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
       setBmi(bmiValue);
     }
@@ -42,7 +44,7 @@ const Register = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password || !height || !weight || !foodPreference || !allergies || !healthGoal || !gender) {
+    if (!username || !email || !password || !height || !weight || !dp || !activitylevel || !hg || !gender || !age) {
       toast.error("Please fill all the fields");
       return;
     }
@@ -50,7 +52,7 @@ const Register = () => {
     try {
       const res = await axios.post(
         "http://localhost:4000/api/v1/user/user/register",
-        { username, email, password, height, weight, foodPreference, allergies, healthGoal, gender, bmi,role: "user"},
+        { username, email, password, height, weight, dp, activitylevel, hg, gender, age, bmi, role: "user" },
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
@@ -62,15 +64,16 @@ const Register = () => {
       setEmail("");
       setUsername("");
       setPassword("");
+      setAge("");  // Clear age after registration
       setHeight("");
       setWeight("");
-      setFoodPreference("");
-      setAllergies("");
-      setHealthGoal("");
+      setDp("");
+      setActivitylevel("");
+      setHg("");
       setGender("");
       setBmi(0);
     } catch (error) {
-      console.error(error); // Log the error to see full details
+      console.error(error); 
       toast.error(error.response?.data.message || "Registration failed");
     }
   };
@@ -110,7 +113,7 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
         /><br />
 
-        {/* New input fields for height and weight */}
+        {/* New input fields for height, weight, and age */}
         <label>Height (cm):</label>
         <input
           type="number"
@@ -126,6 +129,14 @@ const Register = () => {
           placeholder="Enter your weight in kg"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
+        /><br />
+        <label>Age:</label>
+        <input
+          type="number"
+          className="age"
+          placeholder="Enter your age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}  // Add onChange for age
         /><br />
 
         {/* Gender select element */}
@@ -146,8 +157,8 @@ const Register = () => {
         <label>Food Preference:</label>
         <select
           className="food-preference"
-          value={foodPreference}
-          onChange={(e) => setFoodPreference(e.target.value)}
+          value={dp}
+          onChange={(e) => setDp(e.target.value)}
         >
           <option value="">Select</option>
           {foodOptions.map((option) => (
@@ -156,22 +167,34 @@ const Register = () => {
         </select>
         <br />
 
-        {/* Allergy input field */}
-        <label>Allergies (comma-separated):</label>
+        <label>Activity Level:</label>
+            <select
+                name="activityLevel"
+                value={activitylevel}
+                onChange={(e)=> setActivitylevel(e.target.value)}
+            >
+                <option value="sedentary">Sedentary (Little or No Exercise)</option>
+                <option value="lightly active">Lightly Active (Exercise 1-3 Days/Week)</option>
+                <option value="moderately active">Moderately Active (Exercise 3-5 Days/Week)</option>
+                <option value="very active">Very Active (Exercise 6-7 Days/Week)</option>
+                <option value="extra active">Extra Active (Intense Exercise/Physical Job)</option>
+            </select>
+
+        {/* <label>Allergies (comma-separated):</label>
         <input
           type="text"
-          className="allergies"
+          className="alg"
           placeholder="Enter your allergies"
-          value={allergies}
-          onChange={(e) => setAllergies(e.target.value)}
-        /><br />
+          value={alg}
+          onChange={(e) => setAlg(e.target.value)}
+        /><br /> */}
 
         {/* Health goal select element */}
         <label>Health Goal:</label>
         <select
           className="health-goal"
-          value={healthGoal}
-          onChange={(e) => setHealthGoal(e.target.value)}
+          value={hg}
+          onChange={(e) => setHg(e.target.value)}
         >
           <option value="">Select</option>
           {healthGoalOptions.map((option) => (
@@ -195,9 +218,6 @@ const Register = () => {
           <span style={{ marginLeft: 'calc(50% - 20px)' }}>25</span> {/* Normal BMI */}
           <span style={{ float: 'right' }}>40</span> {/* Maximum BMI */}
         </div>
-        <br />
-
-        <label><input type="checkbox" className="cb" />I agree to the <span className="term">terms of service</span></label>
         <br />
         <button type="submit" className="btn">Register</button><br />
         <label className='ac'>Already have an account? </label>
