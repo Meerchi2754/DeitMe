@@ -5,7 +5,10 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Context } from '../main';
 import logo from "../images/d1.png";
-import app from '../App';
+import WeightLoss from '../component/WeightLoss';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+
 
 const Register = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
@@ -16,34 +19,34 @@ const Register = () => {
   const [weight, setWeight] = useState("");
   const [dp, setDp] = useState("");
   const [hg, setHg] = useState("");
-  const [activitylevel,setActivitylevel]=useState('sedentary');
+  const [activitylevel, setActivitylevel] = useState("");
   const [gender, setGender] = useState("");
-  const [bmi, setBmi] = useState(0); // Initialize BMI state to 0 for calculation
-  const [age, setAge] = useState(""); // Add age state
-
-  const healthGoalOptions = ["Weight Loss", "Weight Gain", "Muscle Gain", "Muscle Loss"];
+  const [bmi, setBmi] = useState(0);
+  const [age, setAge] = useState("");
+  
+  const healthGoalOptions = ["Weight Loss", "Weight Gain", "Muscle Gain","Maintaing Health"];
   const foodOptions = ["Vegetarian", "Non-vegetarian", "Vegan", "Gluten-free", "Other"];
   const genderOptions = ["Male", "Female"];
-
+  const activityOptions =["sedentary", "Light", "Moderate", "Active", "Very Active"];
   const navigateTo = useNavigate();
-
+  
   useEffect(() => {
     if (height && weight) {
       calculateBmi(weight, height);
     }
   }, [height, weight]);
-
+  
   const calculateBmi = (weight, height) => {
     if (weight && height) {
-      const heightInMeters = height / 100;  
+      const heightInMeters = height / 100;
       const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
       setBmi(bmiValue);
     }
   };
-
+  
   const handleRegistration = async (e) => {
     e.preventDefault();
-
+    
     if (!username || !email || !password || !height || !weight || !dp || !activitylevel || !hg || !gender || !age) {
       toast.error("Please fill all the fields");
       return;
@@ -58,13 +61,15 @@ const Register = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      toast.success(res.data.message);
+      toast.success("Registration successful");
       setIsAuthenticated(true);
-      navigateTo("/");
+      setTimeout(() => {
+        navigateTo("/"); 
+      }, 2000);
       setEmail("");
       setUsername("");
       setPassword("");
-      setAge("");  // Clear age after registration
+      setAge("");
       setHeight("");
       setWeight("");
       setDp("");
@@ -73,7 +78,7 @@ const Register = () => {
       setGender("");
       setBmi(0);
     } catch (error) {
-      console.error(error); 
+      console.error(error);
       toast.error(error.response?.data.message || "Registration failed");
     }
   };
@@ -84,145 +89,133 @@ const Register = () => {
 
   return (
     <div className="register">
-      <img src={logo} alt="Diet Plan" className="ll" />
+      <ToastContainer />
+      <Link to="/" className="logo-link">
+          <img src={logo} alt="Diet Plan" className="ll" />
+        </Link>
       <h1>Register</h1>
       <p>Please Sign Up!</p>
       <form onSubmit={handleRegistration}>
-        <label>Username:</label>
-        <input
-          type="text"
-          placeholder="Enter the username"
-          className="user"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        /><br />
-        <label>Email:</label>
-        <input
-          type="email"
-          className="email"
-          placeholder="Enter the Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        /><br />
-        <label>Password:</label>
-        <input
-          type="password"
-          placeholder="Enter the password"
-          className="pass"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br />
-
-        {/* New input fields for height, weight, and age */}
-        <label>Height (cm):</label>
-        <input
-          type="number"
-          className="height"
-          placeholder="Enter your height in cm"
-          value={height}
-          onChange={(e) => setHeight(e.target.value)}
-        /><br />
-        <label>Weight (kg):</label>
-        <input
-          type="number"
-          className="weight"
-          placeholder="Enter your weight in kg"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        /><br />
-        <label>Age:</label>
-        <input
-          type="number"
-          className="age"
-          placeholder="Enter your age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}  // Add onChange for age
-        /><br />
-
-        {/* Gender select element */}
-        <label>Gender:</label>
-        <select
-          className="gender"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-        >
-          <option value="">Select</option>
-          {genderOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-        <br />
-
-        {/* Food preference select element */}
-        <label>Food Preference:</label>
-        <select
-          className="food-preference"
-          value={dp}
-          onChange={(e) => setDp(e.target.value)}
-        >
-          <option value="">Select</option>
-          {foodOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-        <br />
-
-        <label>Activity Level:</label>
-            <select
-                name="activityLevel"
-                value={activitylevel}
-                onChange={(e)=> setActivitylevel(e.target.value)}
-            >
-                <option value="sedentary">Sedentary (Little or No Exercise)</option>
-                <option value="lightly active">Lightly Active (Exercise 1-3 Days/Week)</option>
-                <option value="moderately active">Moderately Active (Exercise 3-5 Days/Week)</option>
-                <option value="very active">Very Active (Exercise 6-7 Days/Week)</option>
-                <option value="extra active">Extra Active (Intense Exercise/Physical Job)</option>
-            </select>
-
-        {/* <label>Allergies (comma-separated):</label>
-        <input
-          type="text"
-          className="alg"
-          placeholder="Enter your allergies"
-          value={alg}
-          onChange={(e) => setAlg(e.target.value)}
-        /><br /> */}
-
-        {/* Health goal select element */}
-        <label>Health Goal:</label>
-        <select
-          className="health-goal"
-          value={hg}
-          onChange={(e) => setHg(e.target.value)}
-        >
-          <option value="">Select</option>
-          {healthGoalOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-        <br />
-
-        {/* Display BMI */}
-        <label>Your BMI: {bmi}</label>
-        <input
-          type="range"
-          min="10"
-          max="40"
-          value={bmi}
-          className="bmi-slider"
-          readOnly
-        />
-        <div>
-          <span>10</span> {/* Minimum BMI */}
-          <span style={{ marginLeft: 'calc(50% - 20px)' }}>25</span> {/* Normal BMI */}
-          <span style={{ float: 'right' }}>40</span> {/* Maximum BMI */}
+        <div className="form-group">
+          <label>Username:</label>
+          <input
+            type="text"
+            placeholder="Enter your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
-        <br />
-        <button type="submit" className="btn">Register</button><br />
-        <label className='ac'>Already have an account? </label>
-        <Link to="/login" className="btn">Sign In</Link>
+
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Height (cm):</label>
+          <input
+            type="number"
+            placeholder="Enter your height in cm"
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Weight (kg):</label>
+          <input
+            type="number"
+            placeholder="Enter your weight in kg"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Age:</label>
+          <input
+            type="number"
+            placeholder="Enter your age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Gender:</label>
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value="">Select</option>
+            {genderOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Food Preference:</label>
+          <select
+            value={dp}
+            onChange={(e) => setDp(e.target.value)}
+          >
+            <option value="">Select</option>
+            {foodOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Activity Level:</label>
+          <select
+            value={activitylevel}
+            onChange={(e) => setActivitylevel(e.target.value)}
+          >
+            <option value="">Select</option>
+            {activityOptions.map((level) => (
+              <option key={level} value={level}>{level}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Health Goal:</label>
+          <select
+            className="health-goal"
+            value={hg}
+            onChange={(e) => setHg(e.target.value)}
+          >
+            <option value="">Select</option>
+            {healthGoalOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+        <div className="bmi-display">
+          <span>BMI: {bmi}</span>
+        </div>
+
+        <button type="submit" className="btn">Register</button>
       </form>
+      <p className="ac">
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 };

@@ -1,0 +1,117 @@
+footer {
+    background-color: #002B24;
+    color: #121111;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    background-color: #002B24;
+  }
+  .footer-left{
+    background-color: #002B24;
+  }
+  
+  .footer-left h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    background-color: #002B24;
+    margin-left: 30px;
+  }
+  
+  .footer-left span{
+    list-style: none;
+    padding: 0;
+    color: #fcfbfb;
+    background-color: #002B24;
+    margin: 30px
+  }
+  
+  /* .footer-left ul li {
+    margin-bottom: 8px;
+    color: #0a0a0a;
+    background-color: #002B24;
+  } */
+/*   
+  /* .footer-left ul li a {
+    color: #090909;
+    text-decoration: none;
+    background-color: #002B24;
+  }
+   */
+   .footer-left ul li a {
+    color: #090909;
+    text-decoration: none;
+    background-color: #002B24;
+  }
+  .social-media a {
+    margin-right: 10px;
+    color: #0b0b0b;
+    font-size: 18px;
+    background-color: #002B24;
+  }
+  .footer-right{
+    background-color: #002B24;
+  }
+  
+  .footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    background-color: #002B24;
+    color: #fb8600;;
+  }
+  
+  .footer-right form input {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #feffff;
+  }
+  
+  .footer-right form button {
+    padding: 10px 20px;
+    background-color: #00a859;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 3px;
+    
+  }
+  .form{
+    background-color: #002B24;
+  }
+  .footer-right form label {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    background-color: #002B24;
+    color: white;
+  }
+  
+  .footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid #4A4A4A;
+    background-color: #002B24;
+  }
+  .footer-right ul li{
+    background-color: #002B24;
+  }
+  .footer-bottom ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    background-color: #002B24;
+    
+  }
+  
+  .footer-bottom ul li a {
+    color: #f9f7f7;
+    text-decoration: none;
+    background-color: #002B24;
+  }
+  

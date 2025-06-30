@@ -21,7 +21,7 @@ const userSchema= new mongoose.Schema({
         enum:['Male','Female'],
     },
     weight:{
-        type:String,
+        type:Number,
         required:[true,"Weight is required"],
         
     },
@@ -31,11 +31,11 @@ const userSchema= new mongoose.Schema({
         validate: [validator.isEmail, "Please Provide A Valid Email!"]
     },
     height:{
-        type:String,
+        type:Number,
         required:true,
     },
     bmi:{
-        type:String,
+        type:Number,
         required:true,
     },
     dp:{
@@ -55,8 +55,8 @@ const userSchema= new mongoose.Schema({
     },
     activitylevel:{
         type: String, 
-        enum: ['sedentary', 'lightly active', 'moderately active', 'very active', 'extra active'], 
-        required: true 
+        required: true,
+        enum: ['sedentary','Light', 'Moderate', 'Active', 'Very Active',"sedentary","Light", "Moderate", "Active", "Very Active"]
     },
     role:{
         type:String,

@@ -1,0 +1,17 @@
+.avoid-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration:underline;
+    font-size: 10px;
+}
+.avoid-text p{
+    font-size: 26px;
+    font-weight: 700;
+}
+.avoid-icon {
+    width: 80px;
+    height: 80px;
+    margin-right: 8px; /* Space between the icon and text */
+}

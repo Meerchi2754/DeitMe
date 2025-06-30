@@ -10,3 +10,10 @@ i)npm install cors
 ii)npm i react-toastify
 iii) backend:npm  i bcrypt cloudinary cookie-parser dotenv express mongoose express-fileupload jsonwebtoken validator
 iv) frontend: npm i axios react-icons react-multi-carousel react-router-dom react-toastify 
+
+
+For Deit Planner:
+movement which contain the receipe .
+For eg. Low Fat:
+Food1 	Food2 	Food3	Food4
+etc

@@ -36,6 +36,6 @@ const nutSchema = new mongoose.Schema({
     type: Date,
     default: Date.now, // Timestamp for when the food item was added
   },
-});
+},{ autoIndex: false });
 
 export  const Nutrient = mongoose.model("Nutrient", nutSchema);

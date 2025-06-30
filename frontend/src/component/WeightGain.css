@@ -1,0 +1,13 @@
+.avoid-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration:underline;
+    font-size: 10px;
+}
+.avoid-text p{
+    font-size: 26px;
+    font-weight: 700;
+}
+

@@ -23,14 +23,14 @@ const Login = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      toast.success(res.data.message);
+      toast.success("Login Successfull!!");
       setIsAuthenticated(true);
       navigateTo("/");
       setEmail("");
       setPassword("");
     } catch (error) {
       toast.error(error.response?.data.message || "Login failed");
-      alert("Your Password is not correct");
+      // alert("Your Password is not correct");
     }
   };
 

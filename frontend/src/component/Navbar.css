@@ -6,10 +6,12 @@
   justify-content: center; 
   align-items: center; 
   width: 100%; 
-  font-weight:bolder;
-  position:fixed;
+  font-weight: bolder;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;  /* Ensure the navbar stays above other content */
 }
-
 .navbar-container {
   display: flex;
   align-items: center;
@@ -49,3 +51,31 @@
 .get1:hover {
   background-color: #0056b3;
 }
+.get2 {
+  background-color: #FF4F00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+.get2:hover {
+  background-color: #0056b3;
+}
+
+.get3 {
+  background-color: #FF4F00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+.get3:hover {
+  background-color: #0056b3;
+}
+
